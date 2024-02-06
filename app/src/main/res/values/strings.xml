@@ -2,4 +2,7 @@
     <string name="app_name">PolygonCraft</string>
     <string name="title_home">Polygon Craft</string>
     <string name="home_description">Select the polygon to generate or create it.</string>
+    <string name="main_error_empty_polygons">There is no list of polygons.</string>
+    <string name="error_server">Server error</string>
+    <string name="text_polygon_description">sides</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.ivanbarbosa.polygoncraft.R
 import com.ivanbarbosa.polygoncraft.data.entities.Polygon
@@ -62,6 +63,8 @@ class HomeAdapter(
 
         fun bind(polygon: Polygon) {
             binding.namePolygon.text = polygon.name
+            binding.descriptionPolygon.text =
+                "${polygon.points.size} ${binding.descriptionPolygon.text}"
             binding.root.setOnClickListener { listener.onClick(polygon) }
         }
     }
