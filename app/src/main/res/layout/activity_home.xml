@@ -6,13 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeActivity">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Polygon Craft"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/serif_bold"
+        android:text="@string/title_home"
+        android:textColor="@color/cello"
+        android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/round_bottom"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/serif_regular"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:text="@string/home_description"
+        android:textColor="@color/peppermint"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/ic_announcement"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_home"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:autofillHints="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_subtitle"
+        tools:listitem="@layout/item_polygon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

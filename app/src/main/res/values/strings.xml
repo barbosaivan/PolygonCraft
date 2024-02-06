@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PolygonCraft</string>
+    <string name="title_home">Polygon Craft</string>
+    <string name="home_description">Select the polygon to generate or create it.</string>
 </resources>

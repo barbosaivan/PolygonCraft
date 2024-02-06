@@ -2,7 +2,12 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.PolygonCraft" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/amaranth</item>
+        <item name="colorSecondary">@color/peppermint</item>
+        <item name="colorAccent">@color/aquaIsland</item>
+        <item name="android:statusBarColor">@color/aquaIsland</item>
+        <item name="android:navigationBarColor">@color/aquaIsland</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
 
     <style name="Theme.PolygonCraft" parent="Base.Theme.PolygonCraft" />
