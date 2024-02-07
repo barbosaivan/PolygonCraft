@@ -46,11 +46,24 @@
             android:elevation="2dp"
             android:fontFamily="@font/serif_regular"
             android:maxLines="1"
-            android:text="@string/text_polygon_description"
             android:textColor="@color/gray"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/image_polygon"
             app:layout_constraintStart_toEndOf="@id/image_polygon"
+            app:layout_constraintTop_toTopOf="@id/image_polygon" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:elevation="2dp"
+            android:fontFamily="@font/serif_regular"
+            android:maxLines="1"
+            android:text="@string/text_polygon_description"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/image_polygon"
+            app:layout_constraintStart_toEndOf="@id/description_polygon"
             app:layout_constraintTop_toTopOf="@id/image_polygon" />
 
         <androidx.appcompat.widget.AppCompatImageView

@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.ivanbarbosa.polygoncraft.R
 import com.ivanbarbosa.polygoncraft.data.entities.Polygon
@@ -54,7 +53,7 @@ class HomeAdapter(
 
     fun updatePolygon(updatedPolygon: Polygon) {
         val position = this.polygons.indexOf(updatedPolygon)
-        this.polygons[5] = updatedPolygon
+        this.polygons[position] = updatedPolygon
         notifyItemChanged(position)
     }
 
@@ -63,8 +62,7 @@ class HomeAdapter(
 
         fun bind(polygon: Polygon) {
             binding.namePolygon.text = polygon.name
-            binding.descriptionPolygon.text =
-                "${polygon.points.size} ${binding.descriptionPolygon.text}"
+            binding.descriptionPolygon.text = polygon.points.size.toString()
             binding.root.setOnClickListener { listener.onClick(polygon) }
         }
     }
