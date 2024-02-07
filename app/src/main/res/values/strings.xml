@@ -1,8 +1,20 @@
 <resources>
     <string name="app_name">PolygonCraft</string>
     <string name="title_home">Polygon Craft</string>
-    <string name="home_description">Select the polygon to generate or create it.</string>
+    <string name="home_description">Select the polygon to generate or create a regular polygon.</string>
     <string name="main_error_empty_polygons">There is no list of polygons.</string>
     <string name="error_server">Server error</string>
     <string name="text_polygon_description">sides</string>
+    <string name="text_btn_create_polygon">Create regular polygon</string>
+    <string name="select_scale_prompt">Select the scale\n</string>
+    <string name="title_dialog_create_polygon">Enter the data</string>
+    <string name="hint_et_sides">Number of sides</string>
+    <string name="description_sniper_create_polygon">Select the scale</string>
+    <string name="btn_positive_dialog_create_polygon">Accept</string>
+    <string name="btn_negative_dialog_create_polygon">Cancel</string>
+    <array name="scale_options">
+        <item>x1</item>
+        <item>x2</item>
+        <item>x3</item>
+    </array>
 </resources>

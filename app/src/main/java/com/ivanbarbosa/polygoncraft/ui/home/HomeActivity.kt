@@ -1,5 +1,6 @@
 package com.ivanbarbosa.polygoncraft.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -8,12 +9,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.ivanbarbosa.polygoncraft.data.entities.Polygon
 import com.ivanbarbosa.polygoncraft.databinding.ActivityHomeBinding
+import com.ivanbarbosa.polygoncraft.ui.desing.DesignActivity
 import com.ivanbarbosa.polygoncraft.ui.home.adapters.HomeAdapter
 import com.ivanbarbosa.polygoncraft.ui.home.adapters.onClickListeners.OnClickListenerHome
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity(), OnClickListenerHome {
+class HomeActivity : AppCompatActivity(), OnClickListenerHome, DialogCreatePolygon.DialogCallback {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var homeAdapter: HomeAdapter
@@ -27,6 +29,7 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome {
 
         setUpRecycler()
         setUpViewModel()
+        setUpButton()
     }
 
     override fun onStart() {
@@ -57,11 +60,32 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome {
         }
     }
 
+    private fun setUpButton() {
+        binding.btnCreatePolygon.setOnClickListener {
+            showDialog()
+        }
+    }
+
     private fun requestArtist() {
         viewModel.getPolygons()
     }
 
+    private fun showDialog() {
+        val myDialog = DialogCreatePolygon(this)
+        myDialog.showDialog(this)
+    }
+
+    override fun onPositiveButtonClick(sides: Int, selectedScale: String) {
+        // Positive Button
+    }
+
+    override fun onCancelButtonClick() {
+        // Negative Button
+    }
+
     override fun onClick(polygon: Polygon) {
-        //Click CardView
+        val intent = Intent(this, DesignActivity::class.java)
+        intent.putExtra("POLYGON", polygon)
+        startActivity(intent)
     }
 }

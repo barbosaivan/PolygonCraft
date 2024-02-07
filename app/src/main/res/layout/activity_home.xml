@@ -45,17 +45,35 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:autofillHints="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_create_polygon"
         app:layout_constraintTop_toBottomOf="@id/text_subtitle"
         tools:listitem="@layout/item_polygon" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_create_polygon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="16dp"
+        android:backgroundTint="@color/amaranth"
+        android:fontFamily="@font/serif_bold"
+        android:paddingVertical="12dp"
+        android:text="@string/text_btn_create_polygon"
+        android:textAllCaps="false"
+        android:textSize="22sp"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_home" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:indicatorColor="@color/amaranth"
-        android:indeterminate="true"
         android:elevation="3dp"
+        android:indeterminate="true"
+        app:indicatorColor="@color/amaranth"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

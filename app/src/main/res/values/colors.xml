@@ -4,9 +4,10 @@
     <color name="white">#FFFFFFFF</color>
     <!-- polygon color -->
     <color name="buttercup">#ffbf40</color>
-    <color name="curious_blue">#66b3ff </color>
+    <color name="curious_blue">#66b3ff</color>
     <color name="amaranth">#ff6f7f</color>
     <!-- color palette -->
+    <color name="transparent">#00000000</color>
     <color name="peppermint">#f2faef</color>
     <color name="aqua_white">#fdfdfd</color>
     <color name="aquaIsland">#a7dadc</color>
