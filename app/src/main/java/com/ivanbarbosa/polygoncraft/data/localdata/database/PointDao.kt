@@ -19,5 +19,5 @@ interface PointDao {
     suspend fun insertPoint(point: PointEntity)
 
     @Query("SELECT * FROM points WHERE polygonId = :polygonId")
-    fun getPointForPolygon(polygonId: Long): List<PointEntity>
+    fun getPointForPolygon(polygonId: Long): MutableList<PointEntity>
 }

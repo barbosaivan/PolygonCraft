@@ -18,7 +18,7 @@ object HomeUtils {
         sides: Int,
         scale: Double,
         displacement: Double,
-    ): List<Point> {
+    ): MutableList<Point> {
         val initialAngle = 0.0
         val angleStep = 360.0 / sides
         val points = mutableListOf<Point>()

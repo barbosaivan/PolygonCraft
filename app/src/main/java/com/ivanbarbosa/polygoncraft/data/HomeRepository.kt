@@ -65,7 +65,7 @@ class HomeRepository @Inject constructor(
             val pointsForPolygon = pointDao.getPointForPolygon(polygonEntity.id)
             val resultPoints = pointsForPolygon.map { pointEntity ->
                 Point(pointEntity.x, pointEntity.y)
-            }
+            }.toMutableList()
             result.add(Polygon(polygonEntity.name, resultPoints))
         }
 

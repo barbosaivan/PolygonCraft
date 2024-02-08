@@ -71,7 +71,7 @@ class CanvasPainter(private val canvasUtils: CanvasUtils) {
     }
 
     private fun drawCircleAtPoint(x: Float, y: Float, canvas: Canvas) {
-        canvas.drawCircle(x, y, 25f, paintCircle)
+        canvas.drawCircle(x, y, 50f, paintCircle)
     }
 
     fun drawGrid(canvas: Canvas) {
