@@ -17,7 +17,7 @@ import javax.inject.Inject
 * Create by Ivan Barbosa on 6/02/2024 at 12:41 p.m.
 * Linkedin: https://www.linkedin.com/in/ivanbarbosaortega/
 */
-class HomeRepository @Inject constructor(
+class PolygonRepository @Inject constructor(
     private val apiService: ApiService,
     private val polygonDao: PolygonDao,
     private val pointDao: PointDao
@@ -26,30 +26,16 @@ class HomeRepository @Inject constructor(
     {
         try {
             val retrofitPolygons = getRetrofit()
-            insertPolygonWithPoints(retrofitPolygons)
+            insertPolygonsWithPoints(retrofitPolygons)
         } catch (e: Exception) {
             e.printStackTrace()
         }
         return@withContext getAllPolygonsFromDatabase()
     }
 
-    private suspend fun insertPolygonWithPoints(polygons: List<Polygon>) {
+    private suspend fun insertPolygonsWithPoints(polygons: List<Polygon>) {
         polygons.forEach { polygon ->
-            val existingPolygon = polygonDao.getPolygonByName(polygon.name)
-            val polygonId: Long
-
-            if (existingPolygon == null) {
-                polygonId = polygonDao.insertPolygon(PolygonEntity(name = polygon.name))
-                polygon.points.forEach { point ->
-                    pointDao.insertPoint(
-                        PointEntity(
-                            x = point.x,
-                            y = point.y,
-                            polygonId = polygonId
-                        )
-                    )
-                }
-            }
+            savePolygonWithPoints(polygon)
         }
     }
 
@@ -70,5 +56,16 @@ class HomeRepository @Inject constructor(
         }
 
         return result
+    }
+
+    suspend fun savePolygonWithPoints(polygon: Polygon) = withContext(Dispatchers.IO) {
+        val existingPolygon = polygonDao.getPolygonByName(polygon.name)
+
+        if (existingPolygon == null) {
+            val polygonId = polygonDao.insertPolygon(PolygonEntity(name = polygon.name))
+            polygon.points.forEach { point ->
+                pointDao.insertPoint(PointEntity(x = point.x, y = point.y, polygonId = polygonId))
+            }
+        }
     }
 }

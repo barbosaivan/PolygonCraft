@@ -13,6 +13,12 @@
     <string name="btn_positive_dialog_create_polygon">Accept</string>
     <string name="btn_negative_dialog_create_polygon">Cancel</string>
     <string name="message_invalid_number_of_sides">Enter a valid number of sides</string>
+    <string name="message_saved_polygon">Saved polygon</string>
+    <string name="message_error_saving_polygon">Error saving polygon</string>
+    <string name="message_name_polygon_empty">The name cannot be empty</string>
+    <string name="message_polygon_empty">There is no polygon to save</string>
+    <string name="et_save_polygon">Save polygon</string>
+    <string name="text_polygon_name">Polygon name</string>
     <array name="scale_options">
         <item>x1</item>
         <item>x2</item>

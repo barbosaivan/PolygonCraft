@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/aqua_white"
+    android:backgroundTint="@color/aqua_white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/serif_bold"
+        android:text="@string/et_save_polygon"
+        android:textColor="@color/cello"
+        android:textSize="22sp" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilSides"
+        style="@style/custom_TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:hint="@string/text_polygon_name"
+        app:cursorColor="@color/cello"
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSides"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/cello" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPositive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:backgroundTint="@color/transparent"
+            android:fontFamily="@font/serif_bold"
+            android:paddingVertical="8dp"
+            android:text="@string/btn_positive_dialog_create_polygon"
+            android:textAllCaps="false"
+            android:textColor="@color/curious_blue"
+            android:textSize="16sp"
+            app:cornerRadius="16dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNegative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:backgroundTint="@color/transparent"
+            android:fontFamily="@font/serif_bold"
+            android:paddingVertical="8dp"
+            android:text="@string/btn_negative_dialog_create_polygon"
+            android:textAllCaps="false"
+            android:textColor="@color/amaranth"
+            android:textSize="16sp"
+            app:cornerRadius="16dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</LinearLayout>

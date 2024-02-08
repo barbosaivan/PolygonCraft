@@ -2,15 +2,12 @@ package com.ivanbarbosa.polygoncraft.ui.desing
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.PointF
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.ivanbarbosa.polygoncraft.data.entities.Point
 import com.ivanbarbosa.polygoncraft.data.entities.Polygon
 import com.ivanbarbosa.polygoncraft.utils.CanvasUtils
-import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -59,7 +56,7 @@ class CanvasDrawPolygon(context: Context, attrs: AttributeSet) : View(context, a
     private fun handleTouchDown(x: Float, y: Float) {
         polygon?.let { polygon ->
             for ((index, point) in polygon.points.withIndex()) {
-                val adjustedX = point.x * width *scaleInX
+                val adjustedX = point.x * width * scaleInX
                 val adjustedY = height - (point.y * height) * scaleInY
                 val distance = calculateDistance(x, y, adjustedX.toFloat(), adjustedY.toFloat())
 
@@ -103,5 +100,9 @@ class CanvasDrawPolygon(context: Context, attrs: AttributeSet) : View(context, a
     fun drawPolygon(polygon: Polygon) {
         this.polygon = polygon
         invalidate()
+    }
+
+    fun getPolygon(): Polygon? {
+        return polygon
     }
 }

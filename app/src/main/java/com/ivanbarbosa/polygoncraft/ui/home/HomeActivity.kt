@@ -73,8 +73,8 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome, DialogCreatePolyg
     }
 
     private fun showDialog() {
-        val myDialog = DialogCreatePolygon(this)
-        myDialog.showDialog(this)
+        val dialog = DialogCreatePolygon(this)
+        dialog.showDialog(this)
     }
 
     override fun onPositiveButtonClick(sides: Int, selectedScale: String) {

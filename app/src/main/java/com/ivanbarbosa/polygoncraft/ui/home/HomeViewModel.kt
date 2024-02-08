@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ivanbarbosa.polygoncraft.R
-import com.ivanbarbosa.polygoncraft.data.HomeRepository
+import com.ivanbarbosa.polygoncraft.data.PolygonRepository
 import com.ivanbarbosa.polygoncraft.data.entities.Polygon
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,7 +18,7 @@ import javax.inject.Inject
 * Linkedin: https://www.linkedin.com/in/ivanbarbosaortega/
 */
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: HomeRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val repository: PolygonRepository) : ViewModel() {
 
     private val result = MutableLiveData<List<Polygon>>()
     private val snackbarMsg = MutableLiveData<Int>()
