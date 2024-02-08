@@ -7,11 +7,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.ivanbarbosa.polygoncraft.R
 import com.ivanbarbosa.polygoncraft.data.entities.Polygon
 import com.ivanbarbosa.polygoncraft.databinding.ActivityHomeBinding
 import com.ivanbarbosa.polygoncraft.ui.desing.DesignActivity
 import com.ivanbarbosa.polygoncraft.ui.home.adapters.HomeAdapter
 import com.ivanbarbosa.polygoncraft.ui.home.adapters.onClickListeners.OnClickListenerHome
+import com.ivanbarbosa.polygoncraft.utils.HomeUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -76,7 +78,23 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome, DialogCreatePolyg
     }
 
     override fun onPositiveButtonClick(sides: Int, selectedScale: String) {
-        // Positive Button
+        if (sides <= 2) {
+            Snackbar.make(binding.root,
+                getString(R.string.message_invalid_number_of_sides), Snackbar.LENGTH_SHORT)
+                .show()
+        } else {
+            val scale = when (selectedScale) {
+                "x1" -> 0.33
+                "x2" -> 0.5
+                "x3" -> 1.0
+                else -> 1.0
+            }
+            val points = HomeUtils.calculateCoordinates(sides, scale, scale)
+            val polygon = Polygon("", points)
+            val intent = Intent(this, DesignActivity::class.java)
+            intent.putExtra("POLYGON", polygon)
+            startActivity(intent)
+        }
     }
 
     override fun onCancelButtonClick() {
