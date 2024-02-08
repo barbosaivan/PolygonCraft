@@ -23,6 +23,9 @@ _En la interfaz desing se genera un polígono usando la clase Canvas según los 
 
 _En la interfaz Desing permite guardar el polígono presente en pantalla dándole un nombre único._
 
+_Se implementaron las librerías Junit, Mockito, Coroutines-test para la realización de las pruebas unitarias._
+
+
 ## Instrucciones de instalación
 
 _El proyecto se encuentra en la rama máster._
@@ -50,6 +53,8 @@ _La interfaz Desing permite almacenar el polígono creado o modificado, dándole
 
 _Los polígonos creados se ven reflejados de inmediato en la interfaz Home._
 
+_Al iniciar la aplicación, se dibujará en pantalla automáticamente el polígono más reciente creado. Si se da el caso, este solo sucederá una vez después de creado._
+
 ## Url API REST
 _Polygons:_
 _http://74.235.109.154/api/polygons_
@@ -64,6 +69,8 @@ _http://74.235.109.154/api/polygons_
  * dagger hilt
  
  * androidx
+
+ * Mockito
  
  ## Dependencias implementasdas
 
@@ -99,6 +106,16 @@ _kapt ("com.google.dagger:hilt-android-compiler:2.50")_
 * Dependecia andoroid ktx
 
 _implementation("androidx.activity:activity-ktx:1.8.2")_
+
+* Mockito
+
+_testImplementation ("org.mockito:mockito-inline:3.12.4")_
+
+_testImplementation ("androidx.arch.core:core-testing:2.2.0")_
+
+* Coroutines-test
+
+_testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")_
 
  ## Autor
 _Ivan Barbosa Ortega_
