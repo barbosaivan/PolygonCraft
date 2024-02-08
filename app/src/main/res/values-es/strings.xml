@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PolygonCraft</string>
+    <string name="title_home">Polygon Craft</string>
+    <string name="home_description">Selecciona el polígono para generar o crea un polígono regular.</string>
+    <string name="main_error_empty_polygons">No hay lista de polígonos.</string>
+    <string name="error_server">Error del servidor</string>
+    <string name="text_polygon_description">lados</string>
+    <string name="text_btn_create_polygon">Crear polígono regular</string>
+    <string name="select_scale_prompt">Selecciona la escala\n</string>
+    <string name="title_dialog_create_polygon">Ingresa los datos</string>
+    <string name="hint_et_sides">Número de lados</string>
+    <string name="description_sniper_create_polygon">Selecciona la escala</string>
+    <string name="btn_positive_dialog_create_polygon">Aceptar</string>
+    <string name="btn_negative_dialog_create_polygon">Cancelar</string>
+    <string name="message_invalid_number_of_sides">Ingresa un número válido de lados</string>
+    <string name="message_saved_polygon">Polígono guardado</string>
+    <string name="message_error_saving_polygon">Error al guardar el polígono</string>
+    <string name="message_name_polygon_empty">El nombre no puede estar vacío</string>
+    <string name="message_polygon_empty">No hay polígono para guardar</string>
+    <string name="et_save_polygon">Guardar polígono</string>
+    <string name="text_polygon_name">Nombre del polígono</string>
+    <array name="scale_options">
+        <item>x1</item>
+        <item>x2</item>
+        <item>x3</item>
+    </array>
+</resources>
