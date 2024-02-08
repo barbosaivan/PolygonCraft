@@ -60,6 +60,7 @@ class DesignViewModelTest {
     @Test
     fun `test savePolygon success`() = testScope.runTest {
         val fakePolygon = FakeDataDesign.generateFakePolygons()
+        Mockito.`when`(repository.savePolygonWithPoints(fakePolygon)).thenReturn(true)
 
         viewModel.savePolygon(fakePolygon)
 
@@ -71,7 +72,8 @@ class DesignViewModelTest {
     fun `test savePolygon failure`() = testScope.runTest {
         val fakePolygon = FakeDataDesign.generateFakePolygons()
         val errorMessage = "Test exception"
-        Mockito.`when`(repository.savePolygonWithPoints(fakePolygon)).thenThrow(RuntimeException(errorMessage))
+        Mockito.`when`(repository.savePolygonWithPoints(fakePolygon))
+            .thenThrow(RuntimeException(errorMessage))
 
         viewModel.savePolygon(fakePolygon)
 

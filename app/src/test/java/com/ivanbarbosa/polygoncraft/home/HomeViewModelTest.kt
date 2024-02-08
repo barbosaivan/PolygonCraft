@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import com.ivanbarbosa.polygoncraft.R
 import com.ivanbarbosa.polygoncraft.data.PolygonRepository
 import com.ivanbarbosa.polygoncraft.data.entities.Polygon
+import com.ivanbarbosa.polygoncraft.desing.FakeDataDesign
 import com.ivanbarbosa.polygoncraft.ui.home.HomeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -48,6 +49,9 @@ class HomeViewModelTest {
     @Mock
     private lateinit var snackbarObserver: Observer<Int>
 
+    @Mock
+    private lateinit var selectedPolygonObserver: Observer<Polygon?>
+
     private lateinit var viewModel: HomeViewModel
 
     @Before
@@ -58,9 +62,11 @@ class HomeViewModelTest {
 
         requireNotNull(viewModel.getResult().hasObservers())
         requireNotNull(viewModel.getSnackbarMsg().hasObservers())
+        requireNotNull(viewModel.getSelectedPolygon().hasObservers())
 
         viewModel.getResult().observeForever(observer)
         viewModel.getSnackbarMsg().observeForever(snackbarObserver)
+        viewModel.getSelectedPolygon().observeForever(selectedPolygonObserver)
     }
 
     @After
@@ -99,6 +105,31 @@ class HomeViewModelTest {
             viewModel.getPolygons()
 
             verify(snackbarObserver).onChanged(R.string.error_server)
+        }
+    }
+
+    @Test
+    fun `test getPolygonByName success`() {
+        testScope.runTest {
+            val fakePolygon = FakeDataDesign.generateFakePolygons()
+            val polygonName = "TestPolygon"
+            `when`(repository.getPolygonByName(polygonName)).thenReturn(fakePolygon)
+
+            viewModel.getPolygonByName(polygonName)
+
+            verify(selectedPolygonObserver).onChanged(fakePolygon)
+        }
+    }
+
+    @Test
+    fun `test getPolygonByName failure`() {
+        testScope.runTest {
+            val polygonName = "NonexistentPolygon"
+            `when`(repository.getPolygonByName(polygonName)).thenReturn(null)
+
+            viewModel.getPolygonByName(polygonName)
+
+            verify(selectedPolygonObserver).onChanged(null)
         }
     }
 }
