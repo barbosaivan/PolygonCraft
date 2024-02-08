@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.ivanbarbosa.polygoncraft.R
 import com.ivanbarbosa.polygoncraft.data.entities.Polygon
 import com.ivanbarbosa.polygoncraft.databinding.ActivityDesingBinding
+import com.ivanbarbosa.polygoncraft.ui.desing.canvas.CanvasDrawPolygon
 import com.ivanbarbosa.polygoncraft.utils.Constants
 import com.ivanbarbosa.polygoncraft.utils.SharedPreferencesManager.removeName
 import com.ivanbarbosa.polygoncraft.utils.SharedPreferencesManager.saveName

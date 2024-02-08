@@ -1,4 +1,4 @@
-package com.ivanbarbosa.polygoncraft.ui.desing
+package com.ivanbarbosa.polygoncraft.ui.desing.canvas
 
 import android.graphics.Canvas
 import android.graphics.Color
