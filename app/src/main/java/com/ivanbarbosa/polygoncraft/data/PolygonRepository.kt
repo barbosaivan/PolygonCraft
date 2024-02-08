@@ -58,14 +58,38 @@ class PolygonRepository @Inject constructor(
         return result
     }
 
-    suspend fun savePolygonWithPoints(polygon: Polygon) = withContext(Dispatchers.IO) {
-        val existingPolygon = polygonDao.getPolygonByName(polygon.name)
-
-        if (existingPolygon == null) {
-            val polygonId = polygonDao.insertPolygon(PolygonEntity(name = polygon.name))
-            polygon.points.forEach { point ->
-                pointDao.insertPoint(PointEntity(x = point.x, y = point.y, polygonId = polygonId))
+    suspend fun savePolygonWithPoints(polygon: Polygon): Boolean = withContext(Dispatchers.IO) {
+        try {
+            val existingPolygon = polygonDao.getPolygonByName(polygon.name)
+            if (existingPolygon == null) {
+                val polygonId = polygonDao.insertPolygon(PolygonEntity(name = polygon.name))
+                polygon.points.forEach { point ->
+                    pointDao.insertPoint(
+                        PointEntity(
+                            x = point.x,
+                            y = point.y,
+                            polygonId = polygonId
+                        )
+                    )
+                }
+                return@withContext true
+            } else {
+                return@withContext false
             }
+        } catch (e: Exception) {
+            return@withContext false
         }
+    }
+
+    suspend fun getPolygonByName(name: String): Polygon? = withContext(Dispatchers.IO) {
+        val polygonEntity = polygonDao.getPolygonByName(name)
+        if (polygonEntity != null) {
+            val pointsForPolygon = pointDao.getPointForPolygon(polygonEntity.id)
+            val resultPoints = pointsForPolygon.map { pointEntity ->
+                Point(pointEntity.x, pointEntity.y)
+            }.toMutableList()
+            return@withContext Polygon(polygonEntity.name, resultPoints)
+        }
+        return@withContext null
     }
 }

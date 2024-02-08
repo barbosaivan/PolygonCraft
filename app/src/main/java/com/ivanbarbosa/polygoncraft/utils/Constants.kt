@@ -10,4 +10,5 @@ package com.ivanbarbosa.polygoncraft.utils
 object Constants {
     const val BASE_URL = "http://74.235.109.154/api/"
     const val METHOD_PARAM = "polygons"
+    const val OBJECT_POLYGON = "POLYGON"
 }

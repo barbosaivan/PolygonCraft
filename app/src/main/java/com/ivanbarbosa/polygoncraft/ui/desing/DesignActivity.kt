@@ -2,15 +2,19 @@ package com.ivanbarbosa.polygoncraft.ui.desing
 
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.ivanbarbosa.polygoncraft.R
 import com.ivanbarbosa.polygoncraft.data.entities.Polygon
 import com.ivanbarbosa.polygoncraft.databinding.ActivityDesingBinding
+import com.ivanbarbosa.polygoncraft.utils.Constants
+import com.ivanbarbosa.polygoncraft.utils.SharedPreferencesManager.removeName
+import com.ivanbarbosa.polygoncraft.utils.SharedPreferencesManager.saveName
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class DesignActivity : AppCompatActivity(), DialogSavePolygon.DialogCallback {
@@ -31,9 +35,9 @@ class DesignActivity : AppCompatActivity(), DialogSavePolygon.DialogCallback {
 
     private fun init() {
         val polygon = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("POLYGON", Polygon::class.java)
+            intent.getParcelableExtra(Constants.OBJECT_POLYGON, Polygon::class.java)
         } else {
-            intent.getParcelableExtra<Polygon>("POLYGON")
+            intent.getParcelableExtra<Polygon>(Constants.OBJECT_POLYGON)
         }
 
         if (polygon != null) {
@@ -49,14 +53,19 @@ class DesignActivity : AppCompatActivity(), DialogSavePolygon.DialogCallback {
     }
 
     private fun setUpObserver() {
-        viewModel.polygonSaved.observe(this, Observer { saved ->
+        viewModel.polygonSaved.observe(this) { saved ->
             if (saved) {
-                showSnackbar(getString(R.string.message_saved_polygon))
+                Toast.makeText(
+                    this,
+                    getString(R.string.message_saved_polygon),
+                    Toast.LENGTH_SHORT
+                ).show()
                 finish()
             } else {
                 showSnackbar(getString(R.string.message_error_saving_polygon))
+                removeName(applicationContext)
             }
-        })
+        }
     }
 
     private fun showDialog() {
@@ -78,6 +87,8 @@ class DesignActivity : AppCompatActivity(), DialogSavePolygon.DialogCallback {
         if (polygon != null) {
             viewModel.savePolygon(Polygon(name, polygon.points))
             setUpObserver()
+            removeName(applicationContext)
+            saveName(applicationContext, name)
         } else {
             showSnackbar(getString(R.string.message_polygon_empty))
         }
