@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.desing.DesignActivity">
 
-    <com.ivanbarbosa.polygoncraft.ui.desing.CanvasDrawPolygon
+    <com.ivanbarbosa.polygoncraft.ui.desing.canvas.CanvasDrawPolygon
         android:id="@+id/canvasView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

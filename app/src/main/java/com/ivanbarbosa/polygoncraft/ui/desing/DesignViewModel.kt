@@ -18,15 +18,15 @@ import javax.inject.Inject
 * Linkedin: https://www.linkedin.com/in/ivanbarbosaortega/
 */
 @HiltViewModel
-class DesignViewModel @Inject constructor(private val repository: PolygonRepository) :ViewModel() {
+class DesignViewModel @Inject constructor(private val repository: PolygonRepository) : ViewModel() {
     private val resultPolygonSaved = MutableLiveData<Boolean>()
     val polygonSaved: LiveData<Boolean> get() = resultPolygonSaved
 
     fun savePolygon(polygon: Polygon) {
         viewModelScope.launch {
             try {
-                repository.savePolygonWithPoints(polygon)
-                resultPolygonSaved.value = true
+                val result = repository.savePolygonWithPoints(polygon)
+                resultPolygonSaved.value = result
             } catch (e: Exception) {
                 resultPolygonSaved.value = false
             }

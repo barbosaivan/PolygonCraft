@@ -13,7 +13,10 @@ import com.ivanbarbosa.polygoncraft.databinding.ActivityHomeBinding
 import com.ivanbarbosa.polygoncraft.ui.desing.DesignActivity
 import com.ivanbarbosa.polygoncraft.ui.home.adapters.HomeAdapter
 import com.ivanbarbosa.polygoncraft.ui.home.adapters.onClickListeners.OnClickListenerHome
+import com.ivanbarbosa.polygoncraft.utils.Constants
 import com.ivanbarbosa.polygoncraft.utils.HomeUtils
+import com.ivanbarbosa.polygoncraft.utils.SharedPreferencesManager.getName
+import com.ivanbarbosa.polygoncraft.utils.SharedPreferencesManager.removeName
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,6 +35,7 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome, DialogCreatePolyg
         setUpRecycler()
         setUpViewModel()
         setUpButton()
+        upSharedPreferences()
     }
 
     override fun onStart() {
@@ -68,6 +72,13 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome, DialogCreatePolyg
         }
     }
 
+    private fun upSharedPreferences() {
+        if (!getName(applicationContext).isNullOrEmpty()) {
+            setUpObserverByName()
+            viewModel.getPolygonByName(getName(applicationContext)!!)
+        }
+    }
+
     private fun requestArtist() {
         viewModel.getPolygons()
     }
@@ -79,8 +90,10 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome, DialogCreatePolyg
 
     override fun onPositiveButtonClick(sides: Int, selectedScale: String) {
         if (sides <= 2) {
-            Snackbar.make(binding.root,
-                getString(R.string.message_invalid_number_of_sides), Snackbar.LENGTH_SHORT)
+            Snackbar.make(
+                binding.root,
+                getString(R.string.message_invalid_number_of_sides), Snackbar.LENGTH_SHORT
+            )
                 .show()
         } else {
             val scale = when (selectedScale) {
@@ -91,10 +104,23 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome, DialogCreatePolyg
             }
             val points = HomeUtils.calculateCoordinates(sides, scale, scale)
             val polygon = Polygon("", points)
-            val intent = Intent(this, DesignActivity::class.java)
-            intent.putExtra("POLYGON", polygon)
-            startActivity(intent)
+            startDesignActivity(polygon)
         }
+    }
+
+    private fun setUpObserverByName() {
+        viewModel.getSelectedPolygon().observe(this) {
+            if (it != null) {
+                removeName(applicationContext)
+                startDesignActivity(it)
+            }
+        }
+    }
+
+    private fun startDesignActivity(polygon: Polygon) {
+        val intent = Intent(this, DesignActivity::class.java)
+        intent.putExtra(Constants.OBJECT_POLYGON, polygon)
+        startActivity(intent)
     }
 
     override fun onCancelButtonClick() {
@@ -102,8 +128,6 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome, DialogCreatePolyg
     }
 
     override fun onClick(polygon: Polygon) {
-        val intent = Intent(this, DesignActivity::class.java)
-        intent.putExtra("POLYGON", polygon)
-        startActivity(intent)
+        startDesignActivity(polygon)
     }
 }

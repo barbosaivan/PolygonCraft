@@ -23,12 +23,15 @@ class HomeViewModel @Inject constructor(private val repository: PolygonRepositor
     private val result = MutableLiveData<List<Polygon>>()
     private val snackbarMsg = MutableLiveData<Int>()
     private val loaded = MutableLiveData<Boolean>()
+    private val selectedPolygon = MutableLiveData<Polygon?>()
 
     fun getResult(): MutableLiveData<List<Polygon>> = result
 
     fun getSnackbarMsg() = snackbarMsg
 
     fun isLoaded() = loaded
+
+    fun getSelectedPolygon(): MutableLiveData<Polygon?> = selectedPolygon
 
     fun getPolygons() {
         viewModelScope.launch {
@@ -46,4 +49,16 @@ class HomeViewModel @Inject constructor(private val repository: PolygonRepositor
             }
         }
     }
+
+    fun getPolygonByName(name: String) {
+        viewModelScope.launch {
+            try {
+                val result = repository.getPolygonByName(name)
+                selectedPolygon.value = result
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
 }
