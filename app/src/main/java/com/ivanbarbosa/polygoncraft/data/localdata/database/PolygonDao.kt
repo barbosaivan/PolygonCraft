@@ -17,13 +17,13 @@ import com.ivanbarbosa.polygoncraft.data.entities.PolygonEntity
 @Dao
 interface PolygonDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertPolygon(polygon: PolygonEntity): Long
+    suspend fun insertPolygon(polygon: PolygonEntity): Long
 
     @Transaction
     @Query("SELECT * FROM polygons")
-    fun getAllPolygons(): List<PolygonEntity>
+    suspend fun getAllPolygons(): List<PolygonEntity>
 
     @Query("SELECT * FROM polygons WHERE name = :name LIMIT 1")
-    fun getPolygonByName(name: String): PolygonEntity?
+    suspend fun getPolygonByName(name: String): PolygonEntity?
 }
 

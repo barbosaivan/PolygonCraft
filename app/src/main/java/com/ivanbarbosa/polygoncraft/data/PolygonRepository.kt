@@ -43,7 +43,7 @@ class PolygonRepository @Inject constructor(
         return apiService.getPolygons()
     }
 
-    private fun getAllPolygonsFromDatabase(): List<Polygon> {
+    private suspend fun getAllPolygonsFromDatabase(): List<Polygon> {
         val polygonsFromDatabase = polygonDao.getAllPolygons()
         val result = mutableListOf<Polygon>()
 

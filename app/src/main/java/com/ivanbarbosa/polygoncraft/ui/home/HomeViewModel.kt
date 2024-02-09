@@ -1,5 +1,6 @@
 package com.ivanbarbosa.polygoncraft.ui.home
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,13 +26,13 @@ class HomeViewModel @Inject constructor(private val repository: PolygonRepositor
     private val loaded = MutableLiveData<Boolean>()
     private val selectedPolygon = MutableLiveData<Polygon?>()
 
-    fun getResult(): MutableLiveData<List<Polygon>> = result
+    fun getResult(): LiveData<List<Polygon>> = result
 
-    fun getSnackbarMsg() = snackbarMsg
+    fun getSnackbarMsg(): LiveData<Int> = snackbarMsg
 
-    fun isLoaded() = loaded
+    fun isLoaded(): LiveData<Boolean> = loaded
 
-    fun getSelectedPolygon(): MutableLiveData<Polygon?> = selectedPolygon
+    fun getSelectedPolygon(): LiveData<Polygon?> = selectedPolygon
 
     fun getPolygons() {
         viewModelScope.launch {
