@@ -29,7 +29,7 @@ class DesignActivity : AppCompatActivity(), DialogSavePolygon.DialogCallback {
         binding = ActivityDesingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        canvasView = findViewById(R.id.canvasView)
+        canvasView = binding.canvasView
         init()
         setUpButton()
     }
@@ -38,7 +38,7 @@ class DesignActivity : AppCompatActivity(), DialogSavePolygon.DialogCallback {
         val polygon = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(Constants.OBJECT_POLYGON, Polygon::class.java)
         } else {
-            intent.getParcelableExtra<Polygon>(Constants.OBJECT_POLYGON)
+            intent.getParcelableExtra(Constants.OBJECT_POLYGON)
         }
 
         if (polygon != null) {
@@ -47,7 +47,7 @@ class DesignActivity : AppCompatActivity(), DialogSavePolygon.DialogCallback {
     }
 
     private fun setUpButton() {
-        val fabSave: FloatingActionButton = findViewById(R.id.fabSave)
+        val fabSave: FloatingActionButton = binding.fabSave
         fabSave.setOnClickListener {
             showDialog()
         }

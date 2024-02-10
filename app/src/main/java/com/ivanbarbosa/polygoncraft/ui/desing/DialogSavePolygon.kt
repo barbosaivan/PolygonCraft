@@ -2,16 +2,14 @@ package com.ivanbarbosa.polygoncraft.ui.desing
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import com.ivanbarbosa.polygoncraft.R
+import com.ivanbarbosa.polygoncraft.databinding.DialogCreateLayoutBinding
 
 
 /* 
 * Project: PolygonCraft
 * From: com.ivanbarbosa.polygoncraft.ui.desing
-* Create by Ivan Barbosa on 8/02/2024 at 2:20 a. m.
+* Create by Ivan Barbosa on 8/02/2024 at 2:20 a.m.
 * Linkedin: https://www.linkedin.com/in/ivanbarbosaortega/
 */
 class DialogSavePolygon(private val context: Context) {
@@ -22,26 +20,20 @@ class DialogSavePolygon(private val context: Context) {
     }
 
     fun showDialog(callback: DialogCallback) {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_save_layout, null)
-
-        val etSides = dialogView.findViewById<EditText>(R.id.etSides)
-
+        val binding = DialogCreateLayoutBinding.inflate(LayoutInflater.from(context))
 
         val alertDialogBuilder = AlertDialog.Builder(context)
-        alertDialogBuilder.setView(dialogView)
+        alertDialogBuilder.setView(binding.root)
 
         val alertDialog = alertDialogBuilder.create()
 
-        val btnPositive = dialogView.findViewById<Button>(R.id.btnPositive)
-        val btnNegative = dialogView.findViewById<Button>(R.id.btnNegative)
-
-        btnPositive.setOnClickListener {
-            val name = etSides.text.toString() ?: ""
+        binding.btnPositive.setOnClickListener {
+            val name = binding.etSides.text.toString()
             callback.onPositiveButtonClick(name)
             alertDialog.dismiss()
         }
 
-        btnNegative.setOnClickListener {
+        binding.btnNegative.setOnClickListener {
             callback.onCancelButtonClick()
             alertDialog.dismiss()
         }
