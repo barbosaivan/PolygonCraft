@@ -1,7 +1,7 @@
 # PolygonCraft
 _Aplicación desarrollada en Kotlin-Android para la creación de formas poligonales. (Escenario práctico)_
 
-_Aplicación desarrollada en Kotlin usando la arquitectura MVVC, que presenta información obtenida mediante un consumo API REST y consultas a tablas de datos en SQLite._
+_Aplicación desarrollada en Kotlin usando la arquitectura MVVM, que presenta información obtenida mediante un consumo API REST y consultas a tablas de datos en SQLite._
 
 _Se implementó la librería Retrofit2 en su versión 2.9.0 para realizar el consumo del servicio API REST._
 
@@ -55,11 +55,12 @@ _Los polígonos creados se ven reflejados de inmediato en la interfaz Home._
 
 _Al iniciar la aplicación, se dibujará en pantalla automáticamente el polígono más reciente creado. Si se da el caso, este solo sucederá una vez después de creado._
 
+
 ## Url API REST
 _Polygons:_
 _http://74.235.109.154/api/polygons_
 
- 
+
  ## Herramientas
 
  * retrofit2
@@ -71,6 +72,7 @@ _http://74.235.109.154/api/polygons_
  * androidx
 
  * Mockito
+
  
  ## Dependencias implementasdas
 
@@ -79,7 +81,6 @@ _http://74.235.109.154/api/polygons_
 _implementation ("com.squareup.retrofit2:retrofit:2.9.0")_
 
 _implementation ("com.squareup.retrofit2:converter-gson:2.9.0")_
-
 
 * Room
 
