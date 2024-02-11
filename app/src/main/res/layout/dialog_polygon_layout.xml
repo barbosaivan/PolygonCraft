@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/serif_bold"
-        android:text="@string/et_save_polygon"
+        android:text="@string/title_dialog_create_polygon"
         android:textColor="@color/cello"
         android:textSize="22sp" />
 
@@ -26,7 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        android:hint="@string/text_polygon_name"
         app:cursorColor="@color/cello"
         app:endIconMode="clear_text">
 
@@ -34,11 +33,30 @@
             android:id="@+id/etSides"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
             android:maxLines="1"
             android:textColor="@color/cello" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_spinner_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/serif_regular"
+        android:paddingHorizontal="16dp"
+        android:text="@string/description_sniper_create_polygon"
+        android:textColor="@color/wedge_wood"
+        android:textSize="14sp" />
+
+    <Spinner
+        android:id="@+id/spinnerScale"
+        style="@style/SpinnerStyle"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginHorizontal="16dp"
+        android:prompt="@string/select_scale_prompt" />
+
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

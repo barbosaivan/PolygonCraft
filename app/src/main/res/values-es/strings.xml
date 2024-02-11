@@ -18,7 +18,7 @@
     <string name="message_error_saving_polygon">Error al guardar el polígono</string>
     <string name="message_name_polygon_empty">El nombre no puede estar vacío</string>
     <string name="message_polygon_empty">No hay polígono para guardar</string>
-    <string name="et_save_polygon">Guardar polígono</string>
+    <string name="save_polygon">Guardar polígono</string>
     <string name="text_polygon_name">Nombre del polígono</string>
     <array name="scale_options">
         <item>x1</item>

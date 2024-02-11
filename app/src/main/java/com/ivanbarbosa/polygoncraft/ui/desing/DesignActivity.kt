@@ -2,6 +2,7 @@ package com.ivanbarbosa.polygoncraft.ui.desing
 
 import android.os.Build
 import android.os.Bundle
+import android.text.InputType
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,14 +12,16 @@ import com.ivanbarbosa.polygoncraft.R
 import com.ivanbarbosa.polygoncraft.data.entities.Polygon
 import com.ivanbarbosa.polygoncraft.databinding.ActivityDesingBinding
 import com.ivanbarbosa.polygoncraft.ui.desing.canvas.CanvasDrawPolygon
+import com.ivanbarbosa.polygoncraft.ui.dialogs.PolygonDialog
 import com.ivanbarbosa.polygoncraft.utils.Constants
 import com.ivanbarbosa.polygoncraft.utils.SharedPreferencesManager.removeName
 import com.ivanbarbosa.polygoncraft.utils.SharedPreferencesManager.saveName
+import com.ivanbarbosa.polygoncraft.utils.getStringArray
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class DesignActivity : AppCompatActivity(), DialogSavePolygon.DialogCallback {
+class DesignActivity : AppCompatActivity(), PolygonDialog.DialogCallback {
 
     private lateinit var binding: ActivityDesingBinding
     private lateinit var canvasView: CanvasDrawPolygon
@@ -70,7 +73,16 @@ class DesignActivity : AppCompatActivity(), DialogSavePolygon.DialogCallback {
     }
 
     private fun showDialog() {
-        val dialog = DialogSavePolygon(this)
+        val dialog = PolygonDialog(
+            context = this,
+            requiredEditText = true,
+            requiredSpinner = false,
+            title = getString(R.string.save_polygon),
+            inputType = InputType.TYPE_CLASS_TEXT,
+            hintEditText = getString(R.string.text_polygon_name),
+            descriptionSpinner = null,
+            optionsSpinner = null
+        )
         dialog.showDialog(this)
     }
 
@@ -78,18 +90,18 @@ class DesignActivity : AppCompatActivity(), DialogSavePolygon.DialogCallback {
         canvasView.drawPolygon(polygon)
     }
 
-    override fun onPositiveButtonClick(name: String) {
-        if (name.isBlank()) {
+    override fun onPositiveButtonClick(contentEditText: String, selectedScale: String) {
+        if (contentEditText.isBlank()) {
             showSnackbar(getString(R.string.message_name_polygon_empty))
             return
         }
 
         val polygon = canvasView.getPolygon()
         if (polygon != null) {
-            viewModel.savePolygon(Polygon(name, polygon.points))
+            viewModel.savePolygon(Polygon(contentEditText, polygon.points))
             setUpObserver()
             removeName(applicationContext)
-            saveName(applicationContext, name)
+            saveName(applicationContext, contentEditText)
         } else {
             showSnackbar(getString(R.string.message_polygon_empty))
         }

@@ -2,7 +2,9 @@ package com.ivanbarbosa.polygoncraft.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,16 +13,18 @@ import com.ivanbarbosa.polygoncraft.R
 import com.ivanbarbosa.polygoncraft.data.entities.Polygon
 import com.ivanbarbosa.polygoncraft.databinding.ActivityHomeBinding
 import com.ivanbarbosa.polygoncraft.ui.desing.DesignActivity
+import com.ivanbarbosa.polygoncraft.ui.dialogs.PolygonDialog
 import com.ivanbarbosa.polygoncraft.ui.home.adapters.HomeAdapter
 import com.ivanbarbosa.polygoncraft.ui.home.adapters.onClickListeners.OnClickListenerHome
 import com.ivanbarbosa.polygoncraft.utils.Constants
 import com.ivanbarbosa.polygoncraft.utils.HomeUtils
 import com.ivanbarbosa.polygoncraft.utils.SharedPreferencesManager.getName
 import com.ivanbarbosa.polygoncraft.utils.SharedPreferencesManager.removeName
+import com.ivanbarbosa.polygoncraft.utils.getStringArray
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity(), OnClickListenerHome, DialogCreatePolygon.DialogCallback {
+class HomeActivity : AppCompatActivity(), OnClickListenerHome, PolygonDialog.DialogCallback {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var homeAdapter: HomeAdapter
@@ -84,12 +88,21 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome, DialogCreatePolyg
     }
 
     private fun showDialog() {
-        val dialog = DialogCreatePolygon(this)
+        val dialog = PolygonDialog(
+            context = this,
+            requiredEditText = true,
+            requiredSpinner = true,
+            title = getString(R.string.title_dialog_create_polygon),
+            inputType = InputType.TYPE_CLASS_NUMBER,
+            hintEditText = getString(R.string.hint_et_sides),
+            descriptionSpinner = getString(R.string.description_sniper_create_polygon),
+            optionsSpinner = getStringArray(R.array.scale_options)
+        )
         dialog.showDialog(this)
     }
 
-    override fun onPositiveButtonClick(sides: Int, selectedScale: String) {
-        if (sides <= 2) {
+    override fun onPositiveButtonClick(contentEditText: String, selectedScale: String) {
+        if (contentEditText.toInt() <= 2) {
             Snackbar.make(
                 binding.root,
                 getString(R.string.message_invalid_number_of_sides), Snackbar.LENGTH_SHORT
@@ -98,11 +111,11 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome, DialogCreatePolyg
         } else {
             val scale = when (selectedScale) {
                 "x1" -> 0.33
-                "x2" -> 0.5
-                "x3" -> 1.0
-                else -> 1.0
+                "x2" -> 0.66
+                "x3" -> 0.99
+                else -> 0.99
             }
-            val points = HomeUtils.calculateCoordinates(sides, scale, scale)
+            val points = HomeUtils.calculateCoordinates(contentEditText.toInt(), scale, scale)
             val polygon = Polygon("", points)
             startDesignActivity(polygon)
         }
