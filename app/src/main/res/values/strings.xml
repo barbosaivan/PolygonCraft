@@ -19,6 +19,7 @@
     <string name="message_polygon_empty">There is no polygon to save</string>
     <string name="save_polygon">Save polygon</string>
     <string name="text_polygon_name">Polygon name</string>
+    <string name="title_selected_scale">Select a scale</string>
     <array name="scale_options">
         <item>x1</item>
         <item>x2</item>

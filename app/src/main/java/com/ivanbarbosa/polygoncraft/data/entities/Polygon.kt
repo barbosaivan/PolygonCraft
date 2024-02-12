@@ -13,5 +13,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Polygon(
     val name: String,
-    var points: MutableList<Point>
+    var points: MutableList<Point>,
+    val scale: Double = 0.73
 ) : Parcelable

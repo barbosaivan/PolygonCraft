@@ -20,14 +20,14 @@ class PolygonDialog(
     private val requiredEditText: Boolean,
     private val requiredSpinner: Boolean,
     private val title: String,
-    private val inputType: Int,
-    private val hintEditText: String,
+    private val inputType: Int?,
+    private val hintEditText: String?,
     private val descriptionSpinner: String?,
     private val optionsSpinner: Array<String>?
 ) {
 
     interface DialogCallback {
-        fun onPositiveButtonClick(contentEditText: String, selectedScale: String)
+        fun onPositiveButtonClick(contentEditText: String?, selectedScale: String)
         fun onCancelButtonClick()
     }
 
@@ -35,7 +35,9 @@ class PolygonDialog(
         val binding = DialogPolygonLayoutBinding.inflate(LayoutInflater.from(context))
 
         binding.title.text = title
-        binding.etSides.inputType = inputType
+        if (inputType != null) {
+            binding.etSides.inputType = inputType
+        }
         binding.etSides.hint = hintEditText
         binding.tvSpinnerDescription.text = descriptionSpinner
 
@@ -56,7 +58,7 @@ class PolygonDialog(
         val alertDialog = alertDialogBuilder.create()
 
         binding.btnPositive.setOnClickListener {
-            val sides = binding.etSides.text.toString()
+            val sides = if (binding.etSides.isVisible) binding.etSides.text.toString() else null
             val selectedScale =
                 if (binding.spinnerScale.isVisible) binding.spinnerScale.selectedItem.toString() else ""
             callback.onPositiveButtonClick(sides, selectedScale)

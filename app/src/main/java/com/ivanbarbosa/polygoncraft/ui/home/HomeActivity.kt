@@ -4,12 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
-import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.ivanbarbosa.polygoncraft.R
+import com.ivanbarbosa.polygoncraft.data.entities.Point
 import com.ivanbarbosa.polygoncraft.data.entities.Polygon
 import com.ivanbarbosa.polygoncraft.databinding.ActivityHomeBinding
 import com.ivanbarbosa.polygoncraft.ui.desing.DesignActivity
@@ -17,9 +17,10 @@ import com.ivanbarbosa.polygoncraft.ui.dialogs.PolygonDialog
 import com.ivanbarbosa.polygoncraft.ui.home.adapters.HomeAdapter
 import com.ivanbarbosa.polygoncraft.ui.home.adapters.onClickListeners.OnClickListenerHome
 import com.ivanbarbosa.polygoncraft.utils.Constants
-import com.ivanbarbosa.polygoncraft.utils.HomeUtils
+import com.ivanbarbosa.polygoncraft.utils.Scale
 import com.ivanbarbosa.polygoncraft.utils.SharedPreferencesManager.getName
 import com.ivanbarbosa.polygoncraft.utils.SharedPreferencesManager.removeName
+import com.ivanbarbosa.polygoncraft.utils.calculateCoordinates
 import com.ivanbarbosa.polygoncraft.utils.getStringArray
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,6 +31,7 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome, PolygonDialog.Dia
     private lateinit var homeAdapter: HomeAdapter
     private lateinit var gridLayout: GridLayoutManager
     private val viewModel: HomeViewModel by viewModels()
+    private lateinit var polygon: Polygon
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +74,12 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome, PolygonDialog.Dia
 
     private fun setUpButton() {
         binding.btnCreatePolygon.setOnClickListener {
-            showDialog()
+            showDialog(
+                true,
+                InputType.TYPE_CLASS_NUMBER,
+                getString(R.string.title_dialog_create_polygon),
+                getString(R.string.hint_et_sides)
+            )
         }
     }
 
@@ -87,38 +94,23 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome, PolygonDialog.Dia
         viewModel.getPolygons()
     }
 
-    private fun showDialog() {
+    private fun showDialog(
+        requiredEditText: Boolean,
+        inputType: Int?,
+        title: String,
+        hintEditText: String?
+    ) {
         val dialog = PolygonDialog(
             context = this,
-            requiredEditText = true,
+            requiredEditText = requiredEditText,
             requiredSpinner = true,
-            title = getString(R.string.title_dialog_create_polygon),
-            inputType = InputType.TYPE_CLASS_NUMBER,
-            hintEditText = getString(R.string.hint_et_sides),
+            title = title,
+            inputType = inputType,
+            hintEditText = hintEditText,
             descriptionSpinner = getString(R.string.description_sniper_create_polygon),
             optionsSpinner = getStringArray(R.array.scale_options)
         )
         dialog.showDialog(this)
-    }
-
-    override fun onPositiveButtonClick(contentEditText: String, selectedScale: String) {
-        if (contentEditText.toInt() <= 2) {
-            Snackbar.make(
-                binding.root,
-                getString(R.string.message_invalid_number_of_sides), Snackbar.LENGTH_SHORT
-            )
-                .show()
-        } else {
-            val scale = when (selectedScale) {
-                "x1" -> 0.33
-                "x2" -> 0.66
-                "x3" -> 0.99
-                else -> 0.99
-            }
-            val points = HomeUtils.calculateCoordinates(contentEditText.toInt(), scale, scale)
-            val polygon = Polygon("", points)
-            startDesignActivity(polygon)
-        }
     }
 
     private fun setUpObserverByName() {
@@ -136,11 +128,34 @@ class HomeActivity : AppCompatActivity(), OnClickListenerHome, PolygonDialog.Dia
         startActivity(intent)
     }
 
+    override fun onPositiveButtonClick(contentEditText: String?, selectedScale: String) {
+        if (contentEditText == null) {
+            val scale = Scale.valueOf(selectedScale).value
+            startDesignActivity(Polygon(polygon.name, polygon.points, scale))
+        } else if (contentEditText.isEmpty() || contentEditText.toInt() <= 2) {
+            Snackbar.make(
+                binding.root,
+                getString(R.string.message_invalid_number_of_sides), Snackbar.LENGTH_SHORT
+            ).show()
+        } else {
+            val scale = Scale.valueOf(selectedScale).value
+            val pointsList = mutableListOf<Point>()
+            pointsList.calculateCoordinates(contentEditText.toInt())
+            startDesignActivity(Polygon("", pointsList, scale))
+        }
+    }
+
     override fun onCancelButtonClick() {
         // Negative Button
     }
 
     override fun onClick(polygon: Polygon) {
-        startDesignActivity(polygon)
+        this.polygon = polygon
+        showDialog(
+            false,
+            null,
+            getString(R.string.title_selected_scale),
+            null
+        )
     }
 }

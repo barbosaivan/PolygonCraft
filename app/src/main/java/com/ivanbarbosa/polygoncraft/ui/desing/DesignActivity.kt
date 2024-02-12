@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.ivanbarbosa.polygoncraft.R
+import com.ivanbarbosa.polygoncraft.data.entities.Point
 import com.ivanbarbosa.polygoncraft.data.entities.Polygon
 import com.ivanbarbosa.polygoncraft.databinding.ActivityDesingBinding
 import com.ivanbarbosa.polygoncraft.ui.desing.canvas.CanvasDrawPolygon
@@ -16,7 +17,8 @@ import com.ivanbarbosa.polygoncraft.ui.dialogs.PolygonDialog
 import com.ivanbarbosa.polygoncraft.utils.Constants
 import com.ivanbarbosa.polygoncraft.utils.SharedPreferencesManager.removeName
 import com.ivanbarbosa.polygoncraft.utils.SharedPreferencesManager.saveName
-import com.ivanbarbosa.polygoncraft.utils.getStringArray
+import com.ivanbarbosa.polygoncraft.utils.calculateScalePoint
+import com.ivanbarbosa.polygoncraft.utils.investScalePoint
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -45,7 +47,10 @@ class DesignActivity : AppCompatActivity(), PolygonDialog.DialogCallback {
         }
 
         if (polygon != null) {
-            drawPolygon(polygon)
+            val pointsList = mutableListOf<Point>()
+            pointsList.calculateScalePoint(polygon.points, polygon.scale)
+
+            drawPolygon(Polygon(polygon.name, pointsList, polygon.scale))
         }
     }
 
@@ -90,15 +95,17 @@ class DesignActivity : AppCompatActivity(), PolygonDialog.DialogCallback {
         canvasView.drawPolygon(polygon)
     }
 
-    override fun onPositiveButtonClick(contentEditText: String, selectedScale: String) {
-        if (contentEditText.isBlank()) {
+    override fun onPositiveButtonClick(contentEditText: String?, selectedScale: String) {
+        if (contentEditText.isNullOrEmpty()) {
             showSnackbar(getString(R.string.message_name_polygon_empty))
             return
         }
 
         val polygon = canvasView.getPolygon()
+        val pointsList = mutableListOf<Point>()
         if (polygon != null) {
-            viewModel.savePolygon(Polygon(contentEditText, polygon.points))
+            pointsList.investScalePoint(polygon.points, polygon.scale)
+            viewModel.savePolygon(Polygon(contentEditText, pointsList))
             setUpObserver()
             removeName(applicationContext)
             saveName(applicationContext, contentEditText)

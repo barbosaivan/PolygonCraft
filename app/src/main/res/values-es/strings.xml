@@ -20,6 +20,7 @@
     <string name="message_polygon_empty">No hay polígono para guardar</string>
     <string name="save_polygon">Guardar polígono</string>
     <string name="text_polygon_name">Nombre del polígono</string>
+    <string name="title_selected_scale">Selecciona una escala</string>
     <array name="scale_options">
         <item>x1</item>
         <item>x2</item>
