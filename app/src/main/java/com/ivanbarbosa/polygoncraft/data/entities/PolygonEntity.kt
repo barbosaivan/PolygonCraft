@@ -15,5 +15,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "polygons", indices = [Index(value = ["name"], unique = true)])
 data class PolygonEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val name: String
+    val name: String,
+    val scale: Double
 )

@@ -105,7 +105,7 @@ class DesignActivity : AppCompatActivity(), PolygonDialog.DialogCallback {
         val pointsList = mutableListOf<Point>()
         if (polygon != null) {
             pointsList.investScalePoint(polygon.points, polygon.scale)
-            viewModel.savePolygon(Polygon(contentEditText, pointsList))
+            viewModel.savePolygon(Polygon(contentEditText, pointsList, polygon.scale))
             setUpObserver()
             removeName(applicationContext)
             saveName(applicationContext, contentEditText)

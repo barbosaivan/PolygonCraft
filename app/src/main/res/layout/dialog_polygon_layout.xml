@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/serif_bold"
-        android:text="@string/title_dialog_create_polygon"
         android:textColor="@color/cello"
         android:textSize="22sp" />
 
@@ -30,7 +29,7 @@
         app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etSides"
+            android:id="@+id/et_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"

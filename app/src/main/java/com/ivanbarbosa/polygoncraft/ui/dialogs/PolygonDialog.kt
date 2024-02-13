@@ -36,13 +36,13 @@ class PolygonDialog(
 
         binding.title.text = title
         if (inputType != null) {
-            binding.etSides.inputType = inputType
+            binding.etContent.inputType = inputType
         }
-        binding.etSides.hint = hintEditText
+        binding.etContent.hint = hintEditText
         binding.tvSpinnerDescription.text = descriptionSpinner
 
 
-        if (!requiredEditText) binding.etSides.visibility = View.GONE
+        if (!requiredEditText) binding.etContent.visibility = View.GONE
         if (!requiredSpinner) {
             binding.spinnerScale.visibility = View.GONE
             binding.tvSpinnerDescription.visibility = View.GONE
@@ -58,7 +58,7 @@ class PolygonDialog(
         val alertDialog = alertDialogBuilder.create()
 
         binding.btnPositive.setOnClickListener {
-            val sides = if (binding.etSides.isVisible) binding.etSides.text.toString() else null
+            val sides = if (binding.etContent.isVisible) binding.etContent.text.toString() else null
             val selectedScale =
                 if (binding.spinnerScale.isVisible) binding.spinnerScale.selectedItem.toString() else ""
             callback.onPositiveButtonClick(sides, selectedScale)
